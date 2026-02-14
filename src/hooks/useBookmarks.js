@@ -32,7 +32,7 @@ export function useBookmarks(session) {
   }, [session]);
 
   async function fetchData() {
-    const data = await getBookmarks();
+    const data = await getBookmarks(session.user.id); // 🔥 pass user id
     setBookmarks(data);
   }
 

@@ -1,14 +1,16 @@
 import { supabase } from "../lib/supabaseClient";
 
-export async function getBookmarks() {
+export async function getBookmarks(userId) {
   const { data, error } = await supabase
     .from("bookmarks")
     .select("*")
+    .eq("user_id", userId) // 🔥 filter by logged-in user
     .order("created_at", { ascending: false });
 
   if (error) throw error;
   return data;
 }
+
 
 export async function addBookmark(title, url, userId) {
   const { error } = await supabase.from("bookmarks").insert([
